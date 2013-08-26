@@ -33,4 +33,9 @@ public class UserDAOImpl implements UserDAO {
         return anonymousUsers.get(sessionId);
     }
 
+    @Override
+    public Set<Map.Entry<String, String>> findAllAnonymous() {
+        return anonymousUsers.entrySet();
+    }
+
 }
