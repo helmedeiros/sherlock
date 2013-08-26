@@ -1,5 +1,7 @@
 package com.br.rbs.sherlock.user.service;
 
+import com.br.rbs.sherlock.user.dominio.CreateAnonymousData;
+
 /**
  * .
  * User: helmedeiros
@@ -13,7 +15,7 @@ public interface UserService {
 
     public String listUsers();
 
-    public String createAnonymous(final String sessionId);
+    public CreateAnonymousData createAnonymous(final String sessionId);
 
     public String listAnonymousUsers();
 }
