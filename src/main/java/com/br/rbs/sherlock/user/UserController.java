@@ -1,6 +1,7 @@
 package com.br.rbs.sherlock.user;
 
 import com.br.rbs.sherlock.api.cache.CacheResponseUtil;
+import com.br.rbs.sherlock.user.dominio.CreateAnonymousData;
 import com.br.rbs.sherlock.user.service.UserService;
 import com.br.rbs.sherlock.user.service.UserServiceImpl;
 import org.json.JSONException;
@@ -9,6 +10,8 @@ import org.json.JSONObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * UserController handles the related needs
@@ -19,6 +22,11 @@ import javax.ws.rs.core.Response;
 @Path("/users")
 public class UserController {
 
+    public static final String MEDIA_TYPE = MediaType.APPLICATION_JSON + ";charset=utf-8";
+    public static final int MINUTES_TO_EXPIRE = 5;
+    public static final int S_MAX_AGE = 60;
+    public static final int MAX_AGE = 60 * MINUTES_TO_EXPIRE;
+    public static final int LAST_MODIFIED = 0;
     private UserService service = new UserServiceImpl();
 
     @GET
@@ -26,13 +34,11 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response createAnonymous(@QueryParam("s") String sessionId) throws JSONException {
         Response response;
+        Map<String, JSONObject> jsonMessageMap = new HashMap<String, JSONObject>();
 
-        try {
-            String anonymous = service.createAnonymous(sessionId);
-            response = CacheResponseUtil.createResponse(new JSONObject().put("a", anonymous));
-        } catch (JSONException e) {
-            response = CacheResponseUtil.createResponse(new JSONObject().put("error", e.getMessage()));
-        }
+        CreateAnonymousData data = service.createAnonymous(sessionId);
+        jsonMessageMap.put("result", data.toJson());
+        response = CacheResponseUtil.createResponse(new JSONObject(jsonMessageMap).toString(), MEDIA_TYPE, LAST_MODIFIED, MAX_AGE, S_MAX_AGE);
 
         return response;
     }
