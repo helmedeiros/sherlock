@@ -5,7 +5,6 @@ import com.br.rbs.sherlock.user.dominio.CreateAnonymousData;
 import com.br.rbs.sherlock.user.service.UserService;
 import com.br.rbs.sherlock.user.service.UserServiceImpl;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -34,11 +33,11 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response createAnonymous(@QueryParam("s") String sessionId) throws JSONException {
         Response response;
-        Map<String, JSONObject> jsonMessageMap = new HashMap<String, JSONObject>();
+        Map<String, Object> jsonMessageMap = new HashMap<String, Object>();
 
         CreateAnonymousData data = service.createAnonymous(sessionId);
-        jsonMessageMap.put("result", data.toJson());
-        response = CacheResponseUtil.createResponse(new JSONObject(jsonMessageMap).toString(), MEDIA_TYPE, LAST_MODIFIED, MAX_AGE, S_MAX_AGE);
+        jsonMessageMap.put("result", data);
+        response = CacheResponseUtil.createResponse(jsonMessageMap, MEDIA_TYPE, LAST_MODIFIED, MAX_AGE, S_MAX_AGE);
 
         return response;
     }

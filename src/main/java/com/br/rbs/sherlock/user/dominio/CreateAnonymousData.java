@@ -6,7 +6,7 @@ package com.br.rbs.sherlock.user.dominio;
  * Date: 8/26/13
  * Time: 1:53 PM
  */
-public class CreateAnonymousData extends JsonData implements JsonObject {
+public class CreateAnonymousData{
     private String sessionId;
     private String anonymousId;
 
