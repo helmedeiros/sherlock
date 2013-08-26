@@ -9,15 +9,6 @@
         version="2.5">
     <display-name>Sherlock</display-name>
     <servlet>
-        <servlet-name>Hello</servlet-name>
-        <servlet-class>com.br.rbs.sherlock.api.HelloServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Hello</servlet-name>
-        <url-pattern>/hello/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>Jersey Web Application</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
