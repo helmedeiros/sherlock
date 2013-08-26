@@ -6,8 +6,7 @@ import com.br.rbs.sherlock.user.service.UserServiceImpl;
 import javax.ws.rs.*;
 
 /**
- * UserController handles the related needs for take down assumptions and notes about it,
- * so sherlock could solve the case.
+ * UserController handles the related needs
  * User: helmedeiros
  * Date: 8/25/13
  * Time: 4:54 PM
