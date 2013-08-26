@@ -1,9 +1,14 @@
 package com.br.rbs.sherlock.user;
 
+import com.br.rbs.sherlock.api.cache.CacheResponseUtil;
 import com.br.rbs.sherlock.user.service.UserService;
 import com.br.rbs.sherlock.user.service.UserServiceImpl;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * UserController handles the related needs
@@ -16,11 +21,27 @@ public class UserController {
 
     private UserService service = new UserServiceImpl();
 
+    @GET
+    @Path("/anonymous")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public Response createAnonymous(@PathParam("s") String sessionId) throws JSONException {
+        Response response;
+
+        try {
+            String anonymous = service.createAnonymous(sessionId);
+            response = CacheResponseUtil.createResponse(new JSONObject(anonymous));
+        } catch (JSONException e) {
+            response = CacheResponseUtil.createResponse(new JSONObject(e.getMessage()));
+        }
+
+        return response;
+    }
+
     @POST
     @Path("/create")
     @Produces("text/html")
-    public String create(@FormParam("customer_name") String customerName){
-        return service.createUser(customerName);
+    public String create(@FormParam("n") String customerName, @FormParam("a") String anonymous){
+        return service.createUser(customerName, anonymous);
     }
 
     @GET

@@ -10,9 +10,11 @@ import java.util.Set;
  * Time: 8:52 AM
  */
 public interface UserDAO {
-    public void save(final String customerName, final String user);
+    public String save(final String customerName, final String user);
 
     public boolean find(final String user);
 
     public Set<Map.Entry<String, String>> findAll();
+
+    public String save(final String sessionId);
 }

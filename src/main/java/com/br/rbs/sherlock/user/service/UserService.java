@@ -7,9 +7,11 @@ package com.br.rbs.sherlock.user.service;
  * Time: 10:10 PM
  */
 public interface UserService {
-    public String createUser(final String customerName);
+    public String createUser(final String customerName, String user);
 
     public String findUser(final String user);
 
     public String listUsers();
+
+    public String createAnonymous(final String sessionId);
 }
