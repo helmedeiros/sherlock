@@ -7,6 +7,7 @@ import com.br.rbs.sherlock.user.service.UserServiceImpl;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 
 /**
  * UserController handles the related needs
@@ -14,23 +15,22 @@ import javax.ws.rs.core.Response;
  * Date: 8/25/13
  * Time: 4:54 PM
  */
-@Path("/user")
-public class UserController extends AbstractController {
+@Path("/users")
+public class UsersController extends AbstractController {
 
     private UserService service = new UserServiceImpl();
 
-    @POST
+    @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public User create(@FormParam("n") String customerName, @FormParam("a") String anonymous){
-        return service.createUser(customerName, anonymous);
+    public Response list(){
+        return createResponse(new ArrayList<User>(service.listUsers().values()));
     }
 
     @GET
-    @Path("/{userId}")
+    @Path("/anonymous/")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response find(@PathParam("userId") String userId){
-        final User user = service.findUser(userId);
-        return createResponse(user);
+    public Response listAnonymous(){
+        return createResponse(new ArrayList<User>(service.listAnonymousUsers().values()));
     }
 }

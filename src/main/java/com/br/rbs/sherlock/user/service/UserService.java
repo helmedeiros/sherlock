@@ -1,6 +1,9 @@
 package com.br.rbs.sherlock.user.service;
 
+import com.br.rbs.sherlock.user.domain.User;
 import com.br.rbs.sherlock.user.dominio.CreateAnonymousData;
+
+import java.util.Map;
 
 /**
  * .
@@ -9,13 +12,15 @@ import com.br.rbs.sherlock.user.dominio.CreateAnonymousData;
  * Time: 10:10 PM
  */
 public interface UserService {
-    public String createUser(final String customerName, String user);
+    public User createUser(final String customerName, String user);
 
-    public String findUser(final String user);
+    public User findUser(final String userId);
 
-    public String listUsers();
+    public Map<String, User> listUsers();
 
     public CreateAnonymousData createAnonymous(final String sessionId);
 
-    public String listAnonymousUsers();
+    public Map<String, User> listAnonymousUsers();
+
+    public User findAnonymousUser(final String anonymousId);
 }
