@@ -1,0 +1,20 @@
+body {
+	background-image: -webkit-linear-gradient(top, #00A3DB, #008DBB);background-image: -moz-linear-gradient(center top, #00A3DB, #008DBB);filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#00A3DB, endColorstr=#008DBB);
+	min-height: 500px;
+}
+
+.games-1 {
+	width: 340px;
+	height: 330px;
+	float: left;
+	background: url(../icon/games-1.png) no-repeat;
+	margin: 30px
+}
+
+.games-2 {
+	width: 330px;
+	height: 345px;
+	float: right;
+	background: url(../icon/games-2.png) no-repeat;
+	margin: 30px;
+}

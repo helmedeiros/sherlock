@@ -5,3 +5,6 @@
 *.jar
 *.war
 *.ear
+
+# node-modules - grunt
+node_modules/
