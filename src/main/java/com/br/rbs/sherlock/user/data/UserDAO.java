@@ -17,4 +17,6 @@ public interface UserDAO {
     public Set<Map.Entry<String, String>> findAll();
 
     public String save(final String sessionId);
+
+    public Set<Map.Entry<String,String>> findAllAnonymous();
 }

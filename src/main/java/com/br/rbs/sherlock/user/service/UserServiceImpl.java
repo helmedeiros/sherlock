@@ -6,6 +6,7 @@ import com.br.rbs.sherlock.user.data.UserDAOImpl;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * .
@@ -33,19 +34,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String listUsers() {
-        String header = "<h2>All Users</h2>\n";
-
-        header += "<ul>";
-        for (Map.Entry<String, String> user : userDAO.findAll())
-            header += "\n<li>#" + user.getKey() + " for " + user.getValue() + "</li>";
-
-        header += "\n</ul>";
-
-        return header;
+        return formatList(userDAO.findAll());
     }
 
     @Override
     public String createAnonymous(final String sessionId) {
         return userDAO.save(sessionId);
+    }
+
+    @Override
+    public String listAnonymousUsers() {
+        return formatList(userDAO.findAllAnonymous());
+    }
+
+    private String formatList(Set<Map.Entry<String, String>> all) {
+        String header = "<h2>All Users</h2>\n";
+
+        header += "<ul>";
+        for (Map.Entry<String, String> user : all)
+            header += "\n<li>#" + user.getKey() + " for " + user.getValue() + "</li>";
+
+        header += "\n</ul>";
+
+        return header;
     }
 }

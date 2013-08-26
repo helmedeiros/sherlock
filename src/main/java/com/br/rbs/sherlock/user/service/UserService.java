@@ -14,4 +14,6 @@ public interface UserService {
     public String listUsers();
 
     public String createAnonymous(final String sessionId);
+
+    public String listAnonymousUsers();
 }

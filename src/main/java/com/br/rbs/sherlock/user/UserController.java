@@ -24,14 +24,14 @@ public class UserController {
     @GET
     @Path("/anonymous")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response createAnonymous(@PathParam("s") String sessionId) throws JSONException {
+    public Response createAnonymous(@QueryParam("s") String sessionId) throws JSONException {
         Response response;
 
         try {
             String anonymous = service.createAnonymous(sessionId);
-            response = CacheResponseUtil.createResponse(new JSONObject(anonymous));
+            response = CacheResponseUtil.createResponse(new JSONObject().put("a", anonymous));
         } catch (JSONException e) {
-            response = CacheResponseUtil.createResponse(new JSONObject(e.getMessage()));
+            response = CacheResponseUtil.createResponse(new JSONObject().put("error", e.getMessage()));
         }
 
         return response;
@@ -51,6 +51,7 @@ public class UserController {
         return service.findUser(user);
     }
 
+
     @GET
     @Path("/list")
     @Produces("text/html")
@@ -58,4 +59,10 @@ public class UserController {
         return service.listUsers();
     }
 
+    @GET
+    @Path("/list/anonymous")
+    @Produces("text/html")
+    public String listAnonymous(){
+        return service.listAnonymousUsers();
+    }
 }
