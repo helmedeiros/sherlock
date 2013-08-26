@@ -1,20 +1,80 @@
 body {
 	background-image: -webkit-linear-gradient(top, #00A3DB, #008DBB);background-image: -moz-linear-gradient(center top, #00A3DB, #008DBB);filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#00A3DB, endColorstr=#008DBB);
-	min-height: 500px;
+	
 }
 
-.games-1 {
+header, section {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 100px;
+}
+
+header h1 {
+	width: 405px;
+	height: 105px;
+	background: url(../icon/topo.png) no-repeat;
+	text-indent: -9999px;
+	margin: 7% 0 0 6%;
+	float: left;
+}
+
+#user {
+	width: 200px;
+	height: 71px;
+	float: right;
+	margin: 9% 6% 0 0;
+}
+
+.circle {
+	width: 71px;
+	height: 71px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	background: url(../icon/user.png) center no-repeat #FFF;
+}
+
+.game {
+	width: 50%;
+	float: left;
+}
+
+.xbox a{
+	display: block;
 	width: 340px;
 	height: 330px;
-	float: left;
-	background: url(../icon/games-1.png) no-repeat;
-	margin: 30px
+	margin: 0 auto;
+	background: url(../icon/xbox.png) no-repeat;
 }
 
-.games-2 {
+.pebolim a {
+	display: block;
 	width: 330px;
 	height: 345px;
-	float: right;
-	background: url(../icon/games-2.png) no-repeat;
-	margin: 30px;
+	margin: 0 auto;
+	background: url(../icon/pebolim.png) no-repeat;
+}
+
+@media (max-width: 570px) { /* iphone portrait, galaxy S2 portrait*/
+	header, section {
+		margin-bottom: 40px;
+	}
+
+	header h1 {
+		background: url(../icon/topo-res.png) center no-repeat;
+		margin-left: -7%;
+	}
+
+	.game {
+		width: 100%;
+	}
+
+	.xbox a {
+		background: url(../icon/xbox-res.png) center no-repeat;
+	}
+
+	.pebolim a {
+		background: url(../icon/pebolim-res.png) center no-repeat;
+	}
 }
