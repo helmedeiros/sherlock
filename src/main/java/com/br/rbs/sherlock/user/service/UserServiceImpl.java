@@ -2,12 +2,12 @@ package com.br.rbs.sherlock.user.service;
 
 import com.br.rbs.sherlock.user.data.UserDAO;
 import com.br.rbs.sherlock.user.data.UserDAOImpl;
+import com.br.rbs.sherlock.user.domain.User;
 import com.br.rbs.sherlock.user.dominio.CreateAnonymousData;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * .
@@ -19,47 +19,38 @@ public class UserServiceImpl implements UserService {
     private final UserDAO userDAO = new UserDAOImpl();
 
     @Override
-    public String createUser(final String customerName, final String user) {
-        final String userId;
-        userId = userDAO.save(customerName, user);
-        return "Added user #" + userId;
+    public User createUser(final String customerName, final String user) {
+        return userDAO.save(customerName, user);
     }
 
     @Override
-    public String findUser(final String user) {
-        if (userDAO.find(user))
-            return "<h2>Details on user #" + user + "</h2><p>Customer name: " + UserDAOImpl.users.get(user);
+    public User findUser(final String userId) {
+        if (userDAO.exist(userId))
+            return userDAO.find(userId);
         else
             throw new WebApplicationException(Response.Status.NOT_FOUND);
     }
 
     @Override
-    public String listUsers() {
-        return formatList(userDAO.findAll());
+    public Map<String, User> listUsers() {
+        return userDAO.findAll();
     }
 
     @Override
     public CreateAnonymousData createAnonymous(final String sessionId) {
         CreateAnonymousData data = new CreateAnonymousData();
         data.setSessionId(sessionId);
-        data.setAnonymousId(userDAO.save(sessionId));
+        data.setAnonymousId(userDAO.save(sessionId).getId());
         return data;
     }
 
     @Override
-    public String listAnonymousUsers() {
-        return formatList(userDAO.findAllAnonymous());
+    public Map<String, User> listAnonymousUsers() {
+        return userDAO.findAllAnonymous();
     }
 
-    private String formatList(Set<Map.Entry<String, String>> all) {
-        String header = "<h2>All Users</h2>\n";
-
-        header += "<ul>";
-        for (Map.Entry<String, String> user : all)
-            header += "\n<li>#" + user.getKey() + " for " + user.getValue() + "</li>";
-
-        header += "\n</ul>";
-
-        return header;
+    @Override
+    public User findAnonymousUser(String sessionId) {
+        return userDAO.findAnonymous(sessionId);
     }
 }
