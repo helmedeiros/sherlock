@@ -396,6 +396,8 @@ table {
 }
 body {
 	background-image: -webkit-linear-gradient(top, #00A3DB, #008DBB);background-image: -moz-linear-gradient(center top, #00A3DB, #008DBB);filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#00A3DB, endColorstr=#008DBB);
+	color: #FFF;
+	font-family: BebasNeue;
 }
 
 ul {margin:0; padding: 0;}
@@ -428,7 +430,6 @@ header h1 {
 }
 
 #user {
-	width: 200px;
 	height: 71px;
 	float: right;
 	margin: 9% 6% 0 0;
@@ -441,6 +442,33 @@ header h1 {
 	-moz-border-radius: 50%;
 	border-radius: 50%;
 	background: url(../icon/user.png) center no-repeat #FFF;
+	float: left;
+}
+
+.user-data {
+	font-size: 20px;
+	float: left;
+	margin: 12px 0 0 12px;
+	position: relative;
+}
+
+.user-name {
+	display: block;
+}
+
+.user-icon {
+	width: 28px;
+	height: 23px;
+	background: url(../icon/icon-user.png) no-repeat;
+	position: absolute;
+	right: -35px;
+	top: 10px;
+}
+
+.user-championship {
+	display: inline-block;
+	border-top: 1px solid #FFF;
+	float: left;
 }
 
 .game {
