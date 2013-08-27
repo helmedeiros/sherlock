@@ -6,7 +6,6 @@ import com.br.rbs.sherlock.user.data.UserDAOImpl;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * .
@@ -18,10 +17,10 @@ public class UserServiceImpl implements UserService {
     private final UserDAO userDAO = new UserDAOImpl();
 
     @Override
-    public String createUser(final String customerName) {
-        final String user = UUID.randomUUID().toString();
-        userDAO.save(customerName, user);
-        return "Added user #" + user;
+    public String createUser(final String customerName, final String user) {
+        final String userId;
+        userId = userDAO.save(customerName, user);
+        return "Added user #" + userId;
     }
 
     @Override
@@ -43,5 +42,10 @@ public class UserServiceImpl implements UserService {
         header += "\n</ul>";
 
         return header;
+    }
+
+    @Override
+    public String createAnonymous(final String sessionId) {
+        return userDAO.save(sessionId);
     }
 }
