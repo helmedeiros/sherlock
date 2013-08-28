@@ -1,7 +1,6 @@
 package com.br.rbs.sherlock.user.service;
 
 import com.br.rbs.sherlock.user.domain.User;
-import com.br.rbs.sherlock.user.dominio.CreateAnonymousData;
 
 import java.util.Map;
 

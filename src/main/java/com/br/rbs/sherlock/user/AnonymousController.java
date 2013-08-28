@@ -1,7 +1,6 @@
 package com.br.rbs.sherlock.user;
 
 import com.br.rbs.sherlock.user.domain.User;
-import com.br.rbs.sherlock.user.dominio.CreateAnonymousData;
 import com.br.rbs.sherlock.user.service.UserService;
 import com.br.rbs.sherlock.user.service.UserServiceImpl;
 import org.json.JSONException;
