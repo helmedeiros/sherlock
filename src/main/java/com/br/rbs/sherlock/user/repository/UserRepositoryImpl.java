@@ -2,10 +2,9 @@ package com.br.rbs.sherlock.user.repository;
 
 import com.br.rbs.sherlock.api.util.ValidationUtil;
 import com.br.rbs.sherlock.user.domain.User;
+import com.br.rbs.sherlock.user.domain.enums.Role;
 
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 
 public class UserRepositoryImpl implements UserRepository {
     public static Map<String, User> users = new TreeMap<String, User>();
@@ -70,9 +69,15 @@ public class UserRepositoryImpl implements UserRepository {
         User user = findAnonymousById(id);
 
         if (ValidationUtil.isEmpty(user)){
+
             final String newId = generateID();
             user = new User();
             user.setUserId(newId);
+
+            Set<Role> roles = new TreeSet<Role>();
+            roles.add(Role.SUBSCRIBER);
+
+            user.setRoles(roles);
             anonymousUsers.put(newId, user);
         }
 

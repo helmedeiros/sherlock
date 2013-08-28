@@ -45,8 +45,6 @@ public class SecurityContextFilter implements ResourceFilter, ContainerRequestFi
                 user = userRepository.find(session.getUserId());
             }
         }
-
-
  
         // Set security context
         request.setSecurityContext(new SecureContext(session, user));

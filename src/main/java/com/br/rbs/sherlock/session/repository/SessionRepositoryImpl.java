@@ -20,7 +20,10 @@ public class SessionRepositoryImpl implements SessionRepository {
 
     @Override
     public Session findOne(String sessionId) {
-        return sessions.get(sessionId);  //To change body of implemented methods use File | Settings | File Templates.
+        Session session = null;
+
+        if (!ValidationUtil.isEmpty(sessionId)) { session = sessions.get(sessionId); }
+        return session;
     }
 
     @Override
