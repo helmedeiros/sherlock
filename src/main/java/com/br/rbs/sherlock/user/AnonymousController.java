@@ -8,6 +8,7 @@ import org.json.JSONException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 /**
@@ -19,21 +20,24 @@ import javax.ws.rs.core.Response;
 @Path("/anonymous")
 public class AnonymousController extends AbstractController {
 
+    public static final int ONE_YEAR_MAX_AGE = 31536000;
     private UserService service = new UserServiceImpl();
 
     @GET
-    @Path("/create/{s}")
+    @Path("/create/")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response create(@PathParam("s") String sessionId) throws JSONException {
-        CreateAnonymousData data = service.createAnonymous(sessionId);
-        return createResponse(data);
+    public Response create(@CookieParam(value = "sh_u") String id) throws JSONException {
+        User data = service.createAnonymous(id);
+        final NewCookie newCookie = new NewCookie("sh_u", data.getId(), "/", "", "user id", ONE_YEAR_MAX_AGE, false);
+
+        return createResponse(data, newCookie);
     }
 
     @GET
-    @Path("/{s}")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response find(@PathParam("s") String sessionId){
-        final User anonymousUser = service.findAnonymousUser(sessionId);
+    public Response find(@CookieParam(value = "sh_u") String id){
+        final User anonymousUser = service.findAnonymousUser(id);
         return createResponse(anonymousUser);
     }
 }

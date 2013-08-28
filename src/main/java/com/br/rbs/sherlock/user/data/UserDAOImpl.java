@@ -1,5 +1,6 @@
 package com.br.rbs.sherlock.user.data;
 
+import com.br.rbs.sherlock.api.util.ValidationUtil;
 import com.br.rbs.sherlock.user.domain.User;
 
 import java.util.Map;
@@ -13,14 +14,19 @@ public class UserDAOImpl implements UserDAO {
     public UserDAOImpl() {
     }
 
-    public User save(final String customerName, final String anonymousId) {
+    public User save(final String customerName, final String id) {
+        //Verify if the user id is from anonymous or not.
+        User user = findAnonymousById(id);
 
-        User user = new User();
-        user.setName(customerName);
-        user.setAnonymous(anonymousId);
-        user.setId(generateID());
+        if(ValidationUtil.isEmpty(id) || !ValidationUtil.isEmpty(user)){
+            user.setName(customerName);
+            user.setAnonymous(id);
+            user.setId(generateID());
 
-       users.put(user.getId(), user);
+            users.put(user.getId(), user);
+        }else{
+            user = find(id);
+        }
 
         return user;
     }
@@ -34,20 +40,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User save(String sessionId) {
-        if(!anonymousUsers.containsKey(sessionId)){
-            User user = new User();
-            user.setId(generateID());
-            user.setSessionId(sessionId);
-            user.setAnonymous(user.getId());
-
-            anonymousUsers.put(sessionId, user);
-        }
-
-        return anonymousUsers.get(sessionId);
-    }
-
-    @Override
     public Map<String, User> findAllAnonymous() {
         return anonymousUsers;
     }
@@ -58,8 +50,41 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findAnonymous(String sessionId) {
+    public User findAnonymousBySessionId(String sessionId) {
         return anonymousUsers.get(sessionId);
+    }
+
+    @Override
+    public User findAnonymousById(final String id) {
+
+        User user = null;
+        for (Map.Entry<String, User> cod : anonymousUsers.entrySet()) {
+            if (cod.getValue().getId().equals(id)){
+                user = cod.getValue();
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public User saveAnonymous(final String id) {
+        User anonymousUser = findAnonymousById(id);
+
+        if(ValidationUtil.isEmpty(anonymousUser)){
+            final String newId = generateID();
+
+            if(ValidationUtil.isEmpty(id) || !anonymousUsers.containsKey(id)){
+                User user = new User();
+                user.setId(newId);
+                user.setAnonymous(newId);
+
+                anonymousUsers.put(newId, user);
+            }
+
+            anonymousUser = anonymousUsers.get(newId);
+        }
+
+        return anonymousUser;
     }
 
     private String generateID() {

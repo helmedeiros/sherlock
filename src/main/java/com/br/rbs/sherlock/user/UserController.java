@@ -6,6 +6,7 @@ import com.br.rbs.sherlock.user.service.UserServiceImpl;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 /**
@@ -17,13 +18,18 @@ import javax.ws.rs.core.Response;
 @Path("/user")
 public class UserController extends AbstractController {
 
+    private static final int ONE_YEAR_MAX_AGE = 31536000;
     private UserService service = new UserServiceImpl();
 
     @POST
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public User create(@FormParam("n") String customerName, @FormParam("a") String anonymous){
-        return service.createUser(customerName, anonymous);
+    public Response create(@FormParam("n") String customerName,
+                           @CookieParam(value = "sh_u") String id){
+        final User user = service.createUser(customerName, id);
+        final NewCookie newCookie = new NewCookie("sh_u", user.getId(), "/", "", "user id", ONE_YEAR_MAX_AGE, false);
+
+        return createResponse(user,newCookie);
     }
 
     @GET

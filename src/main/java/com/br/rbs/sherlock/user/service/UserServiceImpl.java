@@ -3,7 +3,6 @@ package com.br.rbs.sherlock.user.service;
 import com.br.rbs.sherlock.user.data.UserDAO;
 import com.br.rbs.sherlock.user.data.UserDAOImpl;
 import com.br.rbs.sherlock.user.domain.User;
-import com.br.rbs.sherlock.user.dominio.CreateAnonymousData;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -37,11 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CreateAnonymousData createAnonymous(final String sessionId) {
-        CreateAnonymousData data = new CreateAnonymousData();
-        data.setSessionId(sessionId);
-        data.setAnonymousId(userDAO.save(sessionId).getId());
-        return data;
+    public User createAnonymous(final String id) {
+        return userDAO.saveAnonymous(id);
     }
 
     @Override
@@ -51,6 +47,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findAnonymousUser(String sessionId) {
-        return userDAO.findAnonymous(sessionId);
+        return userDAO.findAnonymousBySessionId(sessionId);
     }
 }

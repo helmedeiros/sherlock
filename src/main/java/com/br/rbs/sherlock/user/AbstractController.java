@@ -1,8 +1,9 @@
 package com.br.rbs.sherlock.user;
 
-import com.br.rbs.sherlock.api.cache.CacheResponseUtil;
+import com.br.rbs.sherlock.api.cache.ResponseUtil;
 
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,12 +21,12 @@ public class AbstractController {
     public static final int MAX_AGE = 60 * MINUTES_TO_EXPIRE;
     public static final int LAST_MODIFIED = 0;
 
-    protected Response createResponse(Object data) {
+    protected Response createResponse(Object data, NewCookie... cookies) {
         Map<String, Object> jsonMessageMap = new HashMap<String, Object>();
 
         Response response;
         jsonMessageMap.put("result", data);
-        response = CacheResponseUtil.createResponse(jsonMessageMap, MEDIA_TYPE, LAST_MODIFIED, MAX_AGE, S_MAX_AGE);
+        response = ResponseUtil.createResponse(jsonMessageMap, MEDIA_TYPE, LAST_MODIFIED, MAX_AGE, S_MAX_AGE, cookies);
         return response;
     }
 }

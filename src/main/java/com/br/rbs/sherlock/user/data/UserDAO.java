@@ -17,11 +17,13 @@ public interface UserDAO {
 
     public Map<String, User> findAll();
 
-    public User save(final String sessionId);
-
     public Map<String, User> findAllAnonymous();
 
     public boolean exist(final String userId);
 
-    public User findAnonymous(final String sessionId);
+    public User findAnonymousBySessionId(final String sessionId);
+
+    public User saveAnonymous(final String id);
+
+    public User findAnonymousById(final String id);
 }

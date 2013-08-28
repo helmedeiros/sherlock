@@ -18,7 +18,7 @@ public interface UserService {
 
     public Map<String, User> listUsers();
 
-    public CreateAnonymousData createAnonymous(final String sessionId);
+    public User createAnonymous(final String id);
 
     public Map<String, User> listAnonymousUsers();
 
