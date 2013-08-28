@@ -8,12 +8,35 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         version="2.5">
     <display-name>Sherlock</display-name>
+    <context-param>
+        <param-name>org.eclipse.jetty.servlet.SessionCookie</param-name>
+        <param-value>JSESSIONID</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.eclipse.jetty.servlet.SessionIdPathParameterName</param-name>
+        <param-value>jsessionid</param-value>
+    </context-param>
     <servlet>
-        <servlet-name>Hello</servlet-name>
-        <servlet-class>com.br.rbs.sherlock.api.HelloServlet</servlet-class>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <!-- Important bit -->
+            <param-value>com.br.rbs.sherlock</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ResourceFilters</param-name>
+            <param-value>com.br.rbs.sherlock.api.security.ResourceFilterFactory</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Hello</servlet-name>
-        <url-pattern>/hello/*</url-pattern>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <url-pattern>/sherlock/*</url-pattern>
     </servlet-mapping>
+
 </web-app>
