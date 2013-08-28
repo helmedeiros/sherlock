@@ -1,4 +1,4 @@
-package com.br.rbs.sherlock.user.data;
+package com.br.rbs.sherlock.user.repository;
 
 import com.br.rbs.sherlock.api.util.ValidationUtil;
 import com.br.rbs.sherlock.user.domain.User;
@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
-public class UserDAOImpl implements UserDAO {
+public class UserRepositoryImpl implements UserRepository {
     public static Map<String, User> users = new TreeMap<String, User>();
     public static Map<String, User> anonymousUsers = new TreeMap<String, User>();
 
-    public UserDAOImpl() {
+    public UserRepositoryImpl() {
     }
 
     public User save(final String customerName, final String id) {
@@ -20,10 +20,9 @@ public class UserDAOImpl implements UserDAO {
 
         if(ValidationUtil.isEmpty(id) || !ValidationUtil.isEmpty(user)){
             user.setName(customerName);
-            user.setAnonymous(id);
-            user.setId(generateID());
+            user.setUserId(generateID());
 
-            users.put(user.getId(), user);
+            users.put(user.getUserId(), user);
         }else{
             user = find(id);
         }
@@ -59,7 +58,7 @@ public class UserDAOImpl implements UserDAO {
 
         User user = null;
         for (Map.Entry<String, User> cod : anonymousUsers.entrySet()) {
-            if (cod.getValue().getId().equals(id)){
+            if (cod.getValue().getUserId().equals(id)){
                 user = cod.getValue();
             }
         }
@@ -68,23 +67,16 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User saveAnonymous(final String id) {
-        User anonymousUser = findAnonymousById(id);
+        User user = findAnonymousById(id);
 
-        if(ValidationUtil.isEmpty(anonymousUser)){
+        if (ValidationUtil.isEmpty(user)){
             final String newId = generateID();
-
-            if(ValidationUtil.isEmpty(id) || !anonymousUsers.containsKey(id)){
-                User user = new User();
-                user.setId(newId);
-                user.setAnonymous(newId);
-
-                anonymousUsers.put(newId, user);
-            }
-
-            anonymousUser = anonymousUsers.get(newId);
+            user = new User();
+            user.setUserId(newId);
+            anonymousUsers.put(newId, user);
         }
 
-        return anonymousUser;
+        return user;
     }
 
     private String generateID() {

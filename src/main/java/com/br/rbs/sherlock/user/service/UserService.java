@@ -1,6 +1,7 @@
 package com.br.rbs.sherlock.user.service;
 
 import com.br.rbs.sherlock.user.domain.User;
+import com.br.rbs.sherlock.user.domain.data.CreateAnonymousData;
 
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public interface UserService {
 
     public Map<String, User> listUsers();
 
-    public User createAnonymous(final String id);
+    public CreateAnonymousData createAnonymous(String sessionId, final String id);
 
     public Map<String, User> listAnonymousUsers();
 

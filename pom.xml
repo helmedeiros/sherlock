@@ -53,6 +53,12 @@
             <artifactId>genson</artifactId>
             <version>0.98</version>
         </dependency>
+        <dependency>
+            <!-- securty tags: javax.annotation.security.* (@RolesAllowed, @PermitAll, @DenyAll etc.) -->
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>sherlock</finalName>

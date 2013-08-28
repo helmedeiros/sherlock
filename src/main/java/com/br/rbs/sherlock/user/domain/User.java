@@ -1,45 +1,34 @@
 package com.br.rbs.sherlock.user.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.br.rbs.sherlock.user.domain.enums.Role;
+
+import java.security.Principal;
+import java.util.Set;
 
 /**
- * .
+ * Represents a system user.
  * User: helmedeiros
- * Date: 8/26/13
- * Time: 3:17 PM
  */
-public class User {
-    private String name;
-    private List<String> anonymous = new ArrayList<String>();
-    private String id;
-    private String sessionId;
+public class User implements Principal {
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String userId;          //user identifier.
+    private String name;            // user name.
+    private String emailAddress;    // email address
+    private Set<Role> roles;        // roles
 
-    public String getName() {
-        return name;
-    }
+    public String getUserId() { return userId; }
 
-    public void setAnonymous(String anonymous) {
-        this.anonymous.add(anonymous);
-    }
+    public void setUserId(String userId) { this.userId = userId; }
 
-    public List<String> getAnonymous() {
-        return anonymous;
-    }
+    public String getName() { return name; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public String getId() {
-        return id;
-    }
+    public String getEmailAddress() { return emailAddress; }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
+    public void setEmailAddress(String emailAddress) { this.emailAddress = emailAddress; }
+
+    public Set<Role> getRoles() { return roles; }
+
+    public void setRoles(Set<Role> roles) { this.roles = roles; }
 }

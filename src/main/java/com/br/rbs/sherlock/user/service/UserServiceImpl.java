@@ -1,8 +1,12 @@
 package com.br.rbs.sherlock.user.service;
 
-import com.br.rbs.sherlock.user.data.UserDAO;
-import com.br.rbs.sherlock.user.data.UserDAOImpl;
+import com.br.rbs.sherlock.session.domain.Session;
+import com.br.rbs.sherlock.session.repository.SessionRepository;
+import com.br.rbs.sherlock.session.repository.SessionRepositoryImpl;
 import com.br.rbs.sherlock.user.domain.User;
+import com.br.rbs.sherlock.user.domain.data.CreateAnonymousData;
+import com.br.rbs.sherlock.user.repository.UserRepository;
+import com.br.rbs.sherlock.user.repository.UserRepositoryImpl;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -15,7 +19,8 @@ import java.util.Map;
  * Time: 10:11 PM
  */
 public class UserServiceImpl implements UserService {
-    private final UserDAO userDAO = new UserDAOImpl();
+    private final UserRepository userDAO = new UserRepositoryImpl();
+    private final SessionRepository sessionDAO = new SessionRepositoryImpl();
 
     @Override
     public User createUser(final String customerName, final String user) {
@@ -36,8 +41,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createAnonymous(final String id) {
-        return userDAO.saveAnonymous(id);
+    public CreateAnonymousData createAnonymous(final String sessionId, final String id) {
+        final User user = userDAO.saveAnonymous(id);
+        final Session session = sessionDAO.saveSession(sessionId, user);
+
+        return new CreateAnonymousData(user.getUserId(), session.getUserId());
     }
 
     @Override
