@@ -6,5 +6,9 @@
 *.war
 *.ear
 
+#css production bundle & bundle minified
+css/production.css
+css/production.min.css
+
 # node-modules - grunt
 node_modules/
