@@ -9,8 +9,9 @@ li {list-style: none;}
 .right{float: right}
 .block {display: block}
 .float-none {float: none}
+.mb10{margin-bottom: 10px}
 
-@font-face {
+@font-face { 
   	font-family: "BebasNeue";
   	src: url(../fonts/BebasNeue.otf) format("truetype");
 }
@@ -29,6 +30,21 @@ header h1 {
 	text-indent: -9999px;
 	margin: 7% 0 0 6%;
 	float: left;
+}
+
+#companys-area {
+	height: 68px;
+	width: 100%;
+	background-color: #006388;
+	border-top: 2px #008CC0 solid;
+}
+
+
+footer {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 0;
 }
 
 #user {
@@ -68,16 +84,16 @@ header h1 {
 	background: url(../icon/pebolim.png) no-repeat;
 }
 
-footer {
+footer { 
 	width: 100%;
-	height: 160px;
-	position: absolute;
-	bottom: 0;
+	margin: 0;
 	background-color: #006388;
 }
 
 .step-list {
 	height: 100%;
+	overflow: hidden;
+	height: 160px;
 }
 
 .step-1 {
@@ -110,45 +126,56 @@ footer {
 	width: 94px;
 	height: 100%;
 	margin-left: 82px;
-	font-family: "BebasNeue", sans-serif;
+	font-family: "BebasNeue";
+	position: relative;
 }
 
 .step-number-1 {
 	margin-left: 0;
 	color: #FFC926;
-	margin-top: -46px;
-	font-size: 229px;
+	
+	font-size: 228px;
+	line-height: 183px;
 }
 
 .step-number-2 {
 	color: #A2DB00;
-	margin-top: -44px;
-	font-size: 227px;
+	font-size: 225px;
+	line-height: 185px;
 }
 
 .step-number-3 {
 	color: #00FFFF;
-	margin-top: -44px;
+
 	font-size: 224px;
+	line-height: 183px;
 }
 
 .step-featured {
 	display: block;
-	font-size: 20px;
+	font-size: 40px;
 	color: #FFF;
+	font-family: "BebasNeue";
+	margin-top: 8px;
+}
+
+.step-featured-3 {
+	font-size: 60px;
+	margin-top: 0;
 }
 
 .step-container {
-	float: left;
-	width: 60%;
+	
 	padding-left: 10px;
 }
 
 .step-content {
 	color: #FFF;
 	font-size: 14px;
-	width: 50%;
-	display: block;
+	/*width: 70%;*/
+	
+	position: relative;
+	z-index: 2;
 }
 
 .arrow {
@@ -160,12 +187,75 @@ footer {
 	border-bottom: 81px solid transparent;
 } 
 
-.arrow-1 {
-	border-left: 82px solid #0077A0;
+.arrow-1 {border-left: 82px solid #0077A0;}
+
+.arrow-2 {border-left: 82px solid #006D96;}
+
+#companys-list {height: 70px; line-height: 70px; padding-left: 40px}
+.company {
+	background: url(../icon/sprite-companys.png) no-repeat;
+	margin: 20px 20px 0 0;
+	min-height: 20px; 
+	min-width: 50px; 
+	float: left;
 }
 
-.arrow-2 {
-	border-left: 82px solid #006D96;
+.rbs {
+	background-position: -10px -9px;
+	width: 80px;
+	height: 30px;
+}
+.thought-works {
+	background-position: -102px -9px;
+	width: 95px;
+	height: 30px;
+}
+
+.db-server {
+	background-position: -213px -2px;
+	width: 76px;
+	height: 41px;
+	margin-top: 9px;
+}
+
+.stefanini {
+	background-position: -300px -9px;
+	width: 100px;
+	height: 30px;
+}
+
+@media (min-width: 700px) and (max-width: 1095px) {
+	.arrow {display: none}
+	.step{background-image: none;}
+
+	.step-1{width: 33%; margin-right: 0}
+	.step-number-1 {margin-left: 0}
+	.step-2{width: 33%; }
+	.step-number-2 {margin-left: 0}
+	.step-3{width: 33%; margin-left: 0}
+	.step-number-3 {margin-left: 0}
+
+	.step-content {font-size: 12px; line-height: 10px;}
+}
+
+@media (max-width: 700px) {
+	footer{display: block;}
+	.arrow {display: none}
+	.step{background-image: none; display: block; width: 100%; float: none; min-height: 160px}
+	.step-list{display: block; height: auto;}
+	.step-number{margin-left: 0; position: absolute; left: 10px}
+	.step-container {float: left; margin-left: 102px}
+	/*footer{overflow: auto}
+	.step-list{overflow: auto}*/
+
+	/*.step-1{width: 33%; margin-right: 0}
+	.step-number-1 {margin-left: 0}
+	.step-2{width: 33%; }
+	.step-number-2 {margin-left: 0}
+	.step-3{width: 33%; margin-left: 0}
+	.step-number-3 {margin-left: 0}*/ 
+
+	.step-content {font-size: 12px; line-height: 10px;}
 }
 
 @media (max-width: 570px) { /* iphone portrait, galaxy S2 portrait*/
