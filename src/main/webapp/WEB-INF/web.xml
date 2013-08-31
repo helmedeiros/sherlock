@@ -30,7 +30,7 @@
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.spi.container.ResourceFilters</param-name>
-            <param-value>com.br.rbs.sherlock.api.security.ResourceFilterFactory</param-value>
+            <param-value>com.br.rbs.sherlock.api.filter.ResourceFilterFactory</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

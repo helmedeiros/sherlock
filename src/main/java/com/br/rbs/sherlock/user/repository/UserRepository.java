@@ -1,29 +1,25 @@
 package com.br.rbs.sherlock.user.repository;
 
-import com.br.rbs.sherlock.user.domain.User;
+import com.br.rbs.sherlock.api.exception.PersistenceException;
+import com.br.rbs.sherlock.user.domain.entity.User;
+import com.br.rbs.sherlock.user.domain.enums.Role;
 
-import java.util.Map;
+import java.util.Collection;
 
 /**
- * .
+ * {@link User} repository contract.
  * User: helmedeiros
  * Date: 8/26/13
  * Time: 8:52 AM
  */
 public interface UserRepository {
-    public User save(final String customerName, final String user);
+    public User update(final String customerName, final Integer id, Role role) throws PersistenceException;
 
-    public User find(final String user);
+    public User save(final String customerName, Role role) throws PersistenceException;
 
-    public Map<String, User> findAll();
+    public User find(final int id);
 
-    public Map<String, User> findAllAnonymous();
+    public Collection<User> findAll();
 
-    public boolean exist(final String userId);
-
-    public User findAnonymousBySessionId(final String sessionId);
-
-    public User saveAnonymous(String id);
-
-    public User findAnonymousById(final String id);
+    public <T> T findByExactField(Class<T> classe, String field, Object value);
 }

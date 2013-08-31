@@ -1,7 +1,7 @@
 package com.br.rbs.sherlock.api.security;
 
 import com.br.rbs.sherlock.session.domain.Session;
-import com.br.rbs.sherlock.user.domain.User;
+import com.br.rbs.sherlock.user.domain.entity.User;
 import com.br.rbs.sherlock.user.domain.enums.Role;
 
 import javax.ws.rs.WebApplicationException;
@@ -47,7 +47,7 @@ public class SecureContext implements javax.ws.rs.core.SecurityContext {
  
         try {
             // this user has this role?
-            return user.getRoles().contains(Role.valueOf(role));
+            return user.getRole().equals(Role.valueOf(role));
         } catch (Exception e) {
         }
          

@@ -1,43 +1,60 @@
 package com.br.rbs.sherlock.session.repository;
 
+import com.br.rbs.sherlock.api.domain.enums.PERSIST_OPTION;
+import com.br.rbs.sherlock.api.exception.PersistenceException;
+import com.br.rbs.sherlock.api.repository.GenericRepositoryImpl;
 import com.br.rbs.sherlock.api.util.ValidationUtil;
 import com.br.rbs.sherlock.session.domain.Session;
-import com.br.rbs.sherlock.user.domain.User;
 
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 
 /**
- * .
+ * Data access class to {@link Session}.
  * User: helmedeiros
  * Date: 8/27/13
  * Time: 10:32 PM
  */
-public class SessionRepositoryImpl implements SessionRepository {
+public class SessionRepositoryImpl extends GenericRepositoryImpl implements SessionRepository {
 
-    private Map<String, Session> sessions = new TreeMap<String, Session>();
+    public SessionRepositoryImpl() {
+        super();
+    }
 
-    @Override
-    public Session findOne(String sessionId) {
-        Session session = null;
+    public Session update(Session session, final String sessionId) throws PersistenceException {
+        Session newSession = null;
 
-        if (!ValidationUtil.isEmpty(sessionId)) { session = sessions.get(sessionId); }
+        if (!ValidationUtil.isEmpty(sessionId)){
+            newSession = findByExactField(Session.class, "sessionId", sessionId);
+        }
+
+        if(ValidationUtil.isEmpty(newSession)) {
+            newSession = new Session();
+            newSession.setSessionId(generateID());
+            newSession.setActive(true);
+            newSession.setUserId(session.getUserId());
+            newSession.setCreateTime(new Date());
+            newSession.setLastAccessedTime(new Date());
+
+            changeOperation(session, PERSIST_OPTION.INSERT);
+        }
+
+        session = find(newSession.getId());
+
         return session;
     }
 
     @Override
-    public Session saveSession(String sessionId, User user) {
-        Session session = findOne(sessionId);
-        if(ValidationUtil.isEmpty(session)){
+    public Session save(final Session session) throws PersistenceException {
+        return update(session, null);
+    }
 
-            final String id = generateID();
+    public Session find(int id) {
+        Session session = null;
 
-            session = new Session();
-            session.setSessionId(id);
-            session.setUserId(user.getUserId());
-
-            sessions.put(id, session);
+        try {
+            session = findByPrimaryKey(id, Session.class);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
 
         return session;
