@@ -1,13 +1,16 @@
 package com.br.rbs.sherlock.user;
 
-import com.br.rbs.sherlock.user.domain.User;
+import com.br.rbs.sherlock.user.domain.enums.Role;
 import com.br.rbs.sherlock.user.service.UserService;
 import com.br.rbs.sherlock.user.service.UserServiceImpl;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
+import javax.ws.rs.core.SecurityContext;
 
 /**
  * UserController handles the related needs
@@ -23,14 +26,12 @@ public class UsersController extends AbstractController {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response list(){
-        return createResponse(new ArrayList<User>(service.listUsers().values()));
+    public Response list(@Context SecurityContext sc){
+        if (sc.isUserInRole(Role.ANONYMOUS.name())){
+            return createResponse(service.listUsers());
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 
-    @GET
-    @Path("/anonymous/")
-    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response listAnonymous(){
-        return createResponse(new ArrayList<User>(service.listAnonymousUsers().values()));
-    }
 }

@@ -1,10 +1,11 @@
-package com.br.rbs.sherlock.api.security;
+package com.br.rbs.sherlock.api.filter;
 
 import java.util.ArrayList;
 import java.util.List;
  
 import javax.ws.rs.ext.Provider;
- 
+
+import com.br.rbs.sherlock.api.security.SecurityContextFilter;
 import com.sun.jersey.api.container.filter.RolesAllowedResourceFilterFactory;
 import com.sun.jersey.api.model.AbstractMethod;
 import com.sun.jersey.spi.container.ResourceFilter;

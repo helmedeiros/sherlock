@@ -9,9 +9,20 @@
     <url>http://maven.apache.org</url>
     <properties>
         <jettyVersion>9.0.5.v20130815</jettyVersion>
+        <jettyUtilVersion>6.1.16</jettyUtilVersion>
         <junitVersion>4.11</junitVersion>
-        <jerseyVersion>1.17.1</jerseyVersion>
+        <jerseyVersion>1.9</jerseyVersion>
         <jsonVersion>20090211</jsonVersion>
+        <gensonVersion>0.98</gensonVersion>
+        <hibernateVersion>3.2.7.ga</hibernateVersion>
+        <hibernateAnnotationsVersion>3.4.0.GA</hibernateAnnotationsVersion>
+        <HSQLDBVersion>2.3.0</HSQLDBVersion>
+        <log4jVersion>1.2.17</log4jVersion>
+        <jtaVersion>1.1</jtaVersion>
+        <slf4jVersion>1.7.5</slf4jVersion>
+        <asmVersion>3.1</asmVersion>
+        <commonsCollectionVersion>3.2</commonsCollectionVersion>
+        <javaAssistVersion>3.4.GA</javaAssistVersion>
     </properties>
     <dependencies>
         <dependency>
@@ -19,6 +30,16 @@
             <artifactId>junit</artifactId>
             <version>${junitVersion}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commonsCollectionVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>${javaAssistVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -29,17 +50,17 @@
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
-            <version>1.9</version>
+            <version>${jerseyVersion}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
-            <version>1.9</version>
+            <version>${jerseyVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-util</artifactId>
-            <version>6.1.16</version>
+            <version>${jettyUtilVersion}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -51,13 +72,49 @@
         <dependency>
             <groupId>com.owlike</groupId>
             <artifactId>genson</artifactId>
-            <version>0.98</version>
+            <version>${gensonVersion}</version>
         </dependency>
+        <!-- securty tags: javax.annotation.security.* (@RolesAllowed, @PermitAll, @DenyAll etc.) -->
         <dependency>
-            <!-- securty tags: javax.annotation.security.* (@RolesAllowed, @PermitAll, @DenyAll etc.) -->
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
             <version>1.0</version>
+        </dependency>
+        <!-- Hibernate dependencies -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>${hibernateAnnotationsVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <version>${hibernateVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${HSQLDBVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>${jtaVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4jVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4jVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4jVersion}</version>
         </dependency>
     </dependencies>
     <build>
