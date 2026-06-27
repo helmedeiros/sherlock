@@ -1,25 +1,25 @@
 # sherlock
 
-Analytics API written in Java ([javadoc][]) with a DOM Interface Javascript application.
+An early analytics experiment — a Java analytics API paired with a small
+JavaScript front end that talks to the DOM.
 
+It was a first attempt at building an analytics service end to end: a Java/Maven
+backend persisting through Hibernate, served with Jetty, and a browser-side
+application under `src/main/webapp` to exercise it.
 
-## Requirements
+## Stack
 
-  JDK 1.7; Maven 3.x; Windows 7.
+- Java 7, Maven 3
+- Hibernate (configured in `src/main/resources/hibernate.cfg.xml`)
+- jQuery front end under `src/main/webapp`, built with Grunt
 
-## Building + Running the Web Application Sample
+## Build & run
 
-The project uses the maven-based build system [Apache Maven][] (version 3.x):
+```sh
+mvn package      # build the WAR
+mvn jetty:run    # run the sample web application
+```
 
-    $ brew update && brew install maven (OSX+homebrew, check website for other OS)
-    $ git clone https://github.com/helmedeiros/sherlock.git
-    $ cd sherlock
-    $ mvn package # build war file
-    $ mvn jetty:run # run the web application sample
+## License
 
-The repo contains a `pom.xml` file which can be used to build, test and run the project.
-
-You can see the static and dynamic content at http://localhost:8080/.
-
-[javadoc]: http://helmedeiros.github.com/sherlock/javadoc/1.0/com/br/rbs/api/package-summary.html
-[Apache Maven]: http://maven.apache.org/
+[MIT](LICENSE)
